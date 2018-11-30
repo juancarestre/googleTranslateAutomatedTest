@@ -5,16 +5,27 @@ from tasks.customTasks import writeOnSearchBar
 from tasks.customTasks import clickOnSearchButton
 from tasks.customTasks import writeOnSourceLanguageInputThe
 from tasks.customTasks import AsTranslationInAtLeastThreeSecondsThe
-
+from tasks.defaultTasks import clickOn
+from tasks.defaultTasks import writeOn
+from userinterface.pages.googleMain import SEARCH_BUTTON
+from userinterface.pages.googleMain import SEARCH_INPUT_BAR
+from abilities.defaultAbilities import browseTheWeb
+from browersCons import FIREFOX,CHROME
 
 Juan=None
 
-@given(u'Juan is on Google Translate searching by {Keyword}')
-def step_impl(context,Keyword):
+@given(u'Juan is on Google Translate searching by {Keyword} and using the webbrowser {WebBrowser}')
+def step_impl(context,Keyword,WebBrowser):
     global Juan
-    Juan=Actor('Juan')
+
+    Juan=Actor(named='Juan')
+    
+    #Juan.can(browseTheWeb,withBrowser=CHROME)
+    #Juan.can(browseTheWeb,withBrowser=FIREFOX)
+    Juan.can(browseTheWeb)
+
     Juan.wasAbleTo(
-        writeOnSearchBar,clickOnSearchButton,text=Keyword
+        writeOn,clickOn,writableElement=SEARCH_INPUT_BAR,theText=Keyword,clickableElement=SEARCH_BUTTON
     )
 
 @when(u'Juan try to translate from english to spanish {theWord}')
@@ -29,6 +40,7 @@ def step_impl(context,Translation):
     Juan.shouldSee(
         AsTranslationInAtLeastThreeSecondsThe,text=Translation
     )
+    
 
 
     

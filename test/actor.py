@@ -7,15 +7,12 @@ from tasks.defaultTasks import openBrowser
 from tasks.customTasks import writeOnSearchBar
 from tasks.customTasks import clickOnSearchButton
 
-
 class Actor(object):
-    def __init__(self,name):
-        self.name=name
-        self.deafultUrl=config['DEFAULT_URL']
-        self.webDriverPath=config['WEB_DRIVER']
+    def __init__(self,named,**kwargs):
         sys.path.append(config['BASE_DIR'])
-        self.browser=openBrowser(self.webDriverPath,self.deafultUrl)
-        
+        self.named=named
+        self.browser=None
+
 
     def attemptsTo(self,*args,**kwargs):
         self.performs(*args,**kwargs)
@@ -24,6 +21,10 @@ class Actor(object):
     def shouldSee(self,*args,**kwargs):
         self.performs(*args,**kwargs)
         self.finish()
+
+    def can(self,Ability,*args,**kwargs):
+        execute=Ability(**kwargs)
+        if execute: self.browser=execute
 
     def performs(self,*args,**kwargs):
         for arg in args:
