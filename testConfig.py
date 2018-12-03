@@ -1,6 +1,6 @@
 import os
 
-DEFAULT_DRIVER='/googleTranslate/resources/drivers/chromedriver'
+DEFAULT_DRIVER='/googleTranslateAutomatedTest/resources/drivers/chromedriver'
 
 config = {
     'BASE_DIR':os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
@@ -9,4 +9,7 @@ config = {
 }
 
 if __name__=="__main__":
-    print(config['BASE_DIR'])
+    print(config['WEB_DRIVER'])
+    #options.binary_location = "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+    #browser=webdriver.Chrome(desired_capabilities=DesiredCapabilities().CHROME,executable_path=r''+driverPath,chrome_options=options)
+    # browser=webdriver.Chrome(desired_capabilities=DesiredCapabilities().CHROME,executable_path=r''+driverPath,chrome_options=options)
